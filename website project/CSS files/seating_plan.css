@@ -192,12 +192,14 @@ td {
 padding: 0px;
 }
 
-.columns {
+.columns{
   float: left;
   width: 100%;
   padding: 8px;
   color: black;
 }
+
+
 a.button {
     -webkit-appearance: button;
     -moz-appearance: button;
@@ -206,3 +208,4 @@ a.button {
     text-decoration: none;
     color: initial;
 }
+
