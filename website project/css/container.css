@@ -1,0 +1,24 @@
+.container1 {
+  padding: 20px;
+ background-color: #e6f7ff;
+
+}
+
+input[type=text], input[type=submit] {
+  width: 50%;
+  padding: 10px;
+  margin: 10px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  background-color: #66ccff;
+  color: white;
+  border: none;
+}
+
+input[type=submit]:hover {
+  opacity: 0.8;
+}

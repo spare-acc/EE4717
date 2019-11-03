@@ -6,16 +6,7 @@ if (!isset($_SESSION['price'])){
 if (!isset($_SESSION['name'])){
 	$_SESSION['name'] = array();
 }
-if (isset($_GET['buy'])) {
-	$_SESSION['price'][] = $_GET['buy'];
-	header('location: ' . $_SERVER['PHP_SELF']. '?' . SID);
-	exit();
-}
-if (isset($_GET['buy'])) {
-	$_SESSION['name'][] = $_GET['buy'];
-	header('location: ' . $_SERVER['PHP_SELF']. '?' . SID);
-	exit();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,13 +14,18 @@ if (isset($_GET['buy'])) {
 <title>SPORTS UNLIMITED</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="CSS files/seating_plan.css">
-<link rel="stylesheet" href="CSS files/breadcrumb.css">
+<link rel="stylesheet" href="css/seating_plan.css">
+<link rel="stylesheet" href="css/breadcrumb.css">
+<script>
+	if ( window.history.replaceState ) {
+	  window.history.replaceState( null, null, window.location.href );
+	}
+</script>
 </head>
 <body>
 	<div class="topnav">
-	  <img src="images/soccer.jpg" width="100px" height="60px" align="left">
-	  <a href="homepage.html">Home</a>
+	  <img src="soccer.jpg" width="100px" height="60px" align="left">
+	  <a href="index.html">Home</a>
 	  <a class="active" href="events.html">Events</a>
 	  <a href="about.html">About</a>
 	  <a href="contact.html">Contact Us</a>
@@ -45,7 +41,7 @@ if (isset($_GET['buy'])) {
 		<div class="columns" style="float:left;">
 			<div class="content">
 			<h3>Seating plan</h3>
-			<form id="seats" method="get">
+			<form id="seats" method="post">
 				<table>
 					<td>
 						<input type="radio" class="element" name="seat" value="10,1A" onclick="displaySeatDetails();">1A<br>
@@ -135,35 +131,33 @@ if (isset($_GET['buy'])) {
 					</td>
 				</table>
 			
-		<div class="columns" style="float:left;"><h3>Seat details</h3><br>
-			Seat name:
-			<p id="seat_name"> 
-				<script type="text/javascript" src="seats.js"></script>
-			</p>
-			 Seat price: 
-			<p id="seat_price">
-				<script type="text/javascript" src="seats.js"></script>
-			</p>
-		</div>
-		
-		<input type="submit" value="Add To Cart" name="submit" style="margin-bottom:20px;">
-		<?php
-		if (isset($_GET['submit'])) {
-			echo "test";
-			if(isset($_GET['seat'])){
-				echo "test2";
-				$raw_arr = $_GET['seat'];
-				$arr = explode(",",$raw_arr);
-				$price = $arr[0];
-				$name = $arr[1];
-				$_SESSION['price'][] = $price;
-				$_SESSION['name'][] = $name;
-				echo $price;
-				echo $name;
-			}
-		}
-		?>
-
+				<div class="columns" style="float:left;"><h3>Seat details</h3><br>
+					Seat name:
+					<p id="seat_name"> 
+						<script type="text/javascript" src="seats.js"></script>
+					</p>
+					 Seat price: 
+					<p id="seat_price">
+						<script type="text/javascript" src="seats.js"></script>
+					</p>
+				</div>
+				
+				<input type="submit" value="Add To Cart" name="submit" style="margin-bottom:20px;">
+				<?php
+				if (isset($_POST['submit'])) {
+					if(isset($_POST['seat'])){
+						$raw_arr = $_POST['seat'];
+						$arr = explode(",",$raw_arr);
+						$price = $arr[0];
+						$name = $arr[1];
+						$_SESSION['price'][] = $price;
+						$_SESSION['name'][] = $name;
+					}	
+				}
+				?>
+			</form>
+			<form action="payment.php">
+				<input type="submit" value="Pay" style="margin-bottom:20px;">
 			</form>
 			</div>
 		</div>
